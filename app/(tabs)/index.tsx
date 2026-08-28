@@ -1,31 +1,33 @@
-import { StyleSheet } from 'react-native';
+import { useEffect } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useProfileStore } from '../../store/profileStore';
+import { useAuthStore } from '../../store/authStore';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+export default function IndexRedirect() {
+  const router = useRouter();
+  const { profile, loading: profileLoading } = useProfileStore();
+  const { role } = useAuthStore(); // Usar el role de AuthStore por si el profile aún no carga
 
-export default function TabOneScreen() {
+  useEffect(() => {
+    // Si aún está cargando o no hay perfil, esperar.
+    // Usaremos el auth role como fallback rápido si está disponible
+    const userRole = profile?.role || role;
+
+    if (userRole) {
+      if (userRole === 'ADMIN') {
+        router.replace('/(tabs)/admin');
+      } else if (userRole === 'TRAINER') {
+        router.replace('/(tabs)/trainer');
+      } else {
+        router.replace('/(tabs)/client');
+      }
+    }
+  }, [profile, role]);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View className="flex-1 justify-center items-center bg-[#050505]">
+      <ActivityIndicator size="large" color="#D4AF37" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
