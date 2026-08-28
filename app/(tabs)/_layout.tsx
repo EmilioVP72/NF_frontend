@@ -25,6 +25,7 @@ export default function DashboardLayout() {
 
   const clientMenu = [
     { name: 'Mis Rutinas', path: '/client', icon: 'list' },
+    { name: 'Mi Dieta', path: '/client-diets', icon: 'restaurant' },
     { name: 'Perfil', path: '/profile', icon: 'person' },
   ];
 
