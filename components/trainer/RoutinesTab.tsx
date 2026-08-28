@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput, ScrollView, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getToken } from '@/lib/supabase';
-
-const API_URL = 'http://localhost:3000/api/v1';
+import { API_URL } from '@/config';
 
 export default function RoutinesTab() {
   const [routines, setRoutines] = useState([]);

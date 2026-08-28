@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Alert, TextInput, ScrollView } from 'react-native';
 import { useAuthStore } from '../../store/authStore';
 import { Ionicons } from '@expo/vector-icons';
+import { API_URL } from '../../config';
 
 export default function UsersPanel() {
   const { session } = useAuthStore();
@@ -21,7 +22,7 @@ export default function UsersPanel() {
 
   async function fetchUsers() {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/admin/users', {
+      const response = await fetch(`${API_URL}/admin/users`, {
         headers: { Authorization: `Bearer ${session?.access_token}` }
       });
       if (!response.ok) throw new Error('Error al cargar usuarios');
@@ -40,7 +41,7 @@ export default function UsersPanel() {
     }
     setCreating(true);
     try {
-      const response = await fetch('http://localhost:3000/api/v1/admin/users', {
+      const response = await fetch(`${API_URL}/admin/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ export default function UsersPanel() {
         style: 'destructive',
         onPress: async () => {
           try {
-            const response = await fetch(`http://localhost:3000/api/v1/admin/users/${id}`, {
+            const response = await fetch(`${API_URL}/admin/users/${id}`, {
               method: 'DELETE',
               headers: { Authorization: `Bearer ${session?.access_token}` }
             });

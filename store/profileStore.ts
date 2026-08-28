@@ -28,7 +28,8 @@ interface ProfileState {
   uploadAvatar: (token: string, formData: FormData) => Promise<boolean>;
 }
 
-const API_URL = 'http://localhost:3000/api/v1/profiles';
+import { API_URL } from '@/config';
+const API_PROFILES_URL = `${API_URL}/profiles`;
 
 export const useProfileStore = create<ProfileState>((set, get) => ({
   profile: null,
@@ -37,7 +38,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   fetchProfile: async (token: string) => {
     set({ loading: true });
     try {
-      const response = await fetch(`${API_URL}/me`, {
+      const response = await fetch(`${API_PROFILES_URL}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -54,7 +55,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   updateProfile: async (token: string, data: Partial<Profile>) => {
     set({ loading: true });
     try {
-      const response = await fetch(`${API_URL}/me`, {
+      const response = await fetch(`${API_PROFILES_URL}/me`, {
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -79,7 +80,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   completeOnboarding: async (token: string, data: any) => {
     set({ loading: true });
     try {
-      const response = await fetch(`${API_URL}/me/onboarding`, {
+      const response = await fetch(`${API_PROFILES_URL}/me/onboarding`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -104,7 +105,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   uploadAvatar: async (token: string, formData: FormData) => {
     set({ loading: true });
     try {
-      const response = await fetch(`${API_URL}/me/avatar`, {
+      const response = await fetch(`${API_PROFILES_URL}/me/avatar`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -16,6 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuthStore } from '../../store/authStore';
 import { useProfileStore } from '../../store/profileStore';
+import { API_URL } from '../../config';
 
 const GOALS = [
   { value: 'VOLUME', label: 'Volumen', icon: 'barbell-outline' },
@@ -123,7 +124,7 @@ export default function OnboardingScreen() {
           type,
         } as any);
 
-        const uploadRes = await fetch('http://localhost:3000/api/v1/profiles/me/avatar', {
+        const uploadRes = await fetch(`${API_URL}/profiles/me/avatar`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${session.access_token}`,

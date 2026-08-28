@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Alert, ScrollView } from 'react-native';
 import { useAuthStore } from '../../store/authStore';
 import { Ionicons } from '@expo/vector-icons';
+import { API_URL } from '../../config';
 
 export default function AdminDashboard() {
   const { session, user } = useAuthStore();
@@ -16,10 +17,10 @@ export default function AdminDashboard() {
   async function fetchData() {
     try {
       const [usersRes, routinesRes] = await Promise.all([
-        fetch('http://localhost:3000/api/v1/admin/users', {
+        fetch(`${API_URL}/admin/users`, {
           headers: { Authorization: `Bearer ${session?.access_token}` }
         }),
-        fetch('http://localhost:3000/api/v1/admin/routines', {
+        fetch(`${API_URL}/admin/routines`, {
           headers: { Authorization: `Bearer ${session?.access_token}` }
         })
       ]);

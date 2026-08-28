@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput, S
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { getToken } from '@/lib/supabase';
-
-const API_URL = 'http://localhost:3000/api/v1';
+import { API_URL } from '@/config';
 
 export default function ExercisesTab() {
   const [exercises, setExercises] = useState([]);

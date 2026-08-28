@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useAuthStore } from '../../store/authStore';
+import { API_URL } from '../../config';
 
 export default function ClientPanel() {
   const { session } = useAuthStore();
@@ -13,7 +14,7 @@ export default function ClientPanel() {
 
   const fetchRoutines = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/v1/routines', {
+      const response = await fetch(`${API_URL}/routines`, {
         headers: { Authorization: `Bearer ${session?.access_token}` }
       });
       const data = await response.json();
